@@ -1,0 +1,4 @@
+colorama
+requests
+pywin32
+pycryptodome
