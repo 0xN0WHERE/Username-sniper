@@ -73,7 +73,7 @@ python main.py
 
 ## ▶️ Usage
 
-After running **setup.bat**, the tool starts automatically.
+After running `setup.bat`, the tool starts automatically.
 
 Or launch it manually:
 
