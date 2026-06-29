@@ -43,9 +43,14 @@ async def CheckName():
         print("────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────")
         while True:
             try:
+                username = GenUser()
+            except Exception:
+                pass
+
+            try:
                 r = requests.post(
                     "https://discord.com/api/v9/users/@me/pomelo-attempt",
-                    json={"username": GenUser()},
+                    json={"username": username},
                     headers=headers,
                     timeout=5
                 )
@@ -56,18 +61,19 @@ async def CheckName():
                 data = r.json()
 
                 if data.get("taken") is True:
-                    print(f"{bracketopen2}{Fore.RED}+{Style.RESET_ALL}{bracketclosed2}{Fore.RED} Username taken  :{Style.RESET_ALL}  {GenUser()}")
+                    print(f"{bracketopen2}{Fore.RED}TAKEN{Style.RESET_ALL}{bracketclosed2} {username}")
                 else:
                     message = {
-                        "content": f"**[**+**]** ** Username available  :**  `{GenUser()}`"
+                        "content": f"**[**+**]** ** Username available  :**  `{username}`"
                     }
                     response = requests.post(webhook, json=message) 
+                    print(f"{bracketopen2}{Fore.GREEN}AVAILABLE{Style.RESET_ALL}{bracketclosed2} {username}")
 
             elif r.status_code == 429:
                 Retry = r.json().get("retry_after", 5)
                 await asyncio.sleep(Retry / 1000 if Retry > 1000 else Retry)
             else:
-                print(f"{bracketopen2}{Fore.RED}+{Style.RESET_ALL}{bracketclosed2}{Fore.RED} Failed to check :{Style.RESET_ALL}  {GenUser()}")
+                print(f"{bracketopen2}{Fore.RED}FAILED{Style.RESET_ALL}{bracketclosed2} {username}")
                 
     except Exception as e:
         print("")
