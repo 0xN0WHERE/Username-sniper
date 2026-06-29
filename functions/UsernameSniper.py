@@ -55,7 +55,10 @@ async def CheckName():
                     timeout=5
                 )
             except Exception:
-                pass
+                print("")
+                print(f"{bracketopen}{Fore.WHITE}!{Style.RESET_ALL}{bracketclosed}{Fore.RED} Failed to snipe usernames{Style.RESET_ALL}")
+                time.sleep(2)
+                return
 
             if r.status_code in succesStatus:
                 data = r.json()
@@ -75,9 +78,7 @@ async def CheckName():
             else:
                 print(f"{bracketopen2}{Fore.RED}FAILED{Style.RESET_ALL}{bracketclosed2} {username}")
                 
-    except Exception as e:
+    except Exception:
         print("")
         print(f"{bracketopen}{Fore.WHITE}!{Style.RESET_ALL}{bracketclosed}{Fore.RED} Webhook unavailable{Style.RESET_ALL}")
         time.sleep(2)
-    
-    return None
